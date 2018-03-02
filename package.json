@@ -1,0 +1,23 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "- Build a web based minesweeper game in 5 hours using your choice of technologies. - Ensure the game will run 100% in browser and does not require any backend code. All state needs to be in the browser (think in-memory or localStorage) - You should focus on making minesweeper functional and let the player control the size of the board and number of mines added - Extra credit make it look amazing, add sounds, show off your HTML wizardry  - Recommend you use jquery or raw HTML5/DOM.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horizons-school-of-technology/design-and-takehome-one.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/horizons-school-of-technology/design-and-takehome-one/issues"
+  },
+  "homepage": "https://github.com/horizons-school-of-technology/design-and-takehome-one#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
