@@ -1,3 +1,3 @@
 # Minesweeper Challenge
 
-Simple Minesweeper using jQuery. Open index.html to run.
+Simple Minesweeper using jQuery. Open [index.html](/public/index.html) to play.
