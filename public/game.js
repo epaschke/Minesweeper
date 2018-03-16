@@ -1,7 +1,5 @@
 let gameState = {}
-let generate = (size) => Math.floor(Math.random() * Math.floor(size));
 
-//
 $( document ).ready(() => {
   //get storage from state or set new game state
   if (!localStorage.getItem("gameState") || JSON.parse(localStorage.getItem("gameState")).gameOver){
@@ -19,6 +17,7 @@ $( document ).ready(() => {
     gameState = JSON.parse(localStorage.getItem("gameState"));
   }
 
+  //start game
   startGame();
 
   //prevent right click pulling up a menu
@@ -27,7 +26,9 @@ $( document ).ready(() => {
   $('#board').mousedown('.cell', (e) => {
     const coords = e.target.id.split('-');
 
+    //if game wasn't started yet
     if (!gameState.gameStarted){
+      //place bombs
       setCellStates(coords);
       //start timer
       gameState.timer = setInterval(function() {
@@ -37,6 +38,7 @@ $( document ).ready(() => {
       gameState.gameStarted = true;
     }
 
+    //if game isn't over
     if (!gameState.gameOver){
       //save square by coords
       const square = gameState.board[coords[0]][coords[1]];
@@ -86,13 +88,14 @@ $( document ).ready(() => {
     }
   });
 
-  //start new game
+  //start new game of certain difficulty
   $(".difficulty").click((e) => {
     //clear old states
     clearInterval(gameState.timer);
     $('#timer').text('0');
 
     let size = [];
+    //establish size based on click
     switch(e.target.id){
       case 'beginner':
         size = [9, 10];
@@ -103,7 +106,7 @@ $( document ).ready(() => {
       case 'advanced':
         size = [20, 100];
         break;
-      default:
+      default: //default is beginner
         size = [9, 10];
     }
     //new game state
@@ -118,6 +121,7 @@ $( document ).ready(() => {
     };
 
     localStorage.setItem("gameState", JSON.stringify(gameState));
+    //start game here
     startGame();
   })
 });
@@ -125,25 +129,30 @@ $( document ).ready(() => {
 
 //GAME FUNCTIONS
 
+//generate random number with a max size
+let generate = (size) => Math.floor(Math.random() * Math.floor(size));
+
 //fn to create new game
 const newGame = (size, bombs) => {
-  //make empty array
   let tempGame = [];
+  //create board of size with number of bombs
   for (let i = 0; i < size; i++){
     tempGame.push([]);
     for (let j = 0; j < size; j++){
       tempGame[i][j] = { state: 'unclicked', bomb: false, value: null };
     };
   };
-
-
+  //return created board
   return tempGame;
 }
 
+//set bombs and values
 const setCellStates = (firstClick) => {
   //placing bombs
   let placed = 0;
+  //do not place bombs on first clicked square
   firstClick = [parseInt(firstClick[0]), parseInt(firstClick[1])];
+  //randomly place bombs until all are placed
   while (placed < gameState.bombs) {
     let possible = [generate(gameState.size), generate(gameState.size)];
       let square = gameState.board[possible[0]][possible[1]];
@@ -157,8 +166,10 @@ const setCellStates = (firstClick) => {
   //count border bombs
   for (let i = 0; i < gameState.size; i++){
     for (let j = 0; j < gameState.size; j++){
+      //only count if square is not a bomb itself
       if (!gameState.board[i][j].bomb){
         let bordering = [];
+        //push all adjacent squares into array
         if (i > 0){
           bordering.push(gameState.board[i - 1][j - 1]);
           bordering.push(gameState.board[i - 1][j]);
@@ -171,7 +182,9 @@ const setCellStates = (firstClick) => {
           bordering.push(gameState.board[i + 1][j]);
           bordering.push(gameState.board[i + 1][j + 1]);
         }
+        //filter out bombs/non-bomb
         let bombCount = bordering.filter(f => f !== undefined ? f.bomb : false);
+        //set bomb count to be a value
         gameState.board[i][j].value = bombCount.length;
       }
     }
@@ -183,7 +196,7 @@ const startGame = () => {
   $("#board").empty();
   $('#message').text('');
 
-  //map gameState to board
+  //map gameState to displayed board
   gameState.board.map((e, row) => {
     $('#board').append(`<div id="r${row}" class="row"></div>`)
     e.map((cell, col) => {
@@ -195,9 +208,10 @@ const startGame = () => {
   })
   $('#bombs').text(gameState.bombs);
 
-  //fix timer if refreshing page
+  //set timer to saved value if reloading game
   if (gameState.gameStarted && !gameState.gameOver) {
     $("#timer").text(gameState.timerVal);
+    //create timer fn and increment timerVal
     gameState.timer = setInterval(function() {
       gameState.timerVal++;
       $('#timer').text(gameState.timerVal.toString());
@@ -225,17 +239,21 @@ const checkEnd = () => {
   }
   //if user made move
   else {
-    //count number of squares left that are not bombs
+    //count number of squares left that are not bombs, reduce to a boolean
     let a = gameState.board.map(e => {
         return e.filter(c => {
           return (c.state === 'unclicked' && !c.bomb) || (c.state === 'flagged' && !c.bomb);
         }).length;
     }).reduce((a, v) => { return a + parseInt(v); }, 0) === 0;
 
+    //if there are no unclicked squares left, player wins!
     if (a) {
+      //clear interval and game state
       clearInterval(gameState.timer);
       gameState.bombs = 0;
+      //update messsage
       $("#message").text("Game over. You won!");
+      //map over game board and put flags on unflagged bombs
       gameState.board.map((e, row) => {
         e.map((cell, col) => {
           if (cell.bomb && cell.state === 'unclicked'){
@@ -248,88 +266,68 @@ const checkEnd = () => {
   }
 }
 
+//filter out adjacent blanks
 const filterGame = (coords) => {
   coords = [parseInt(coords[0]), parseInt(coords[1])];
-  //check S
-  for (let i = coords[0] + 1; i < gameState.size; i++){
-    console.log('s')
-    let val = checkCoord(i, coords[1]);
-    if (val === false) {
-      console.log('break')
-      break;
+  //check East square
+  if (coords[1] + 1 < gameState.size){
+    checkCoord(coords[0], coords[1] + 1);
+  }
+  //check West square
+  if (coords[1] - 1 >= 0){
+    checkCoord(coords[0], coords[1] - 1);
+  }
+  //check North South
+  if (coords[0] - 1 >= 0){
+    //check North square
+    checkCoord(coords[0] - 1, coords[1]);
+
+    //check North corners
+    if (coords[1] - 1 >= 0){
+      checkCoord(coords[0] - 1, coords[1] - 1);
+    }
+    if (coords[1] + 1 < gameState.size){
+      checkCoord(coords[0] - 1, coords[1] + 1);
     }
   }
-  //check N
-  for (let i = coords[0] - 1; i >= 0; i--){
-    console.log('n')
-    let val = checkCoord(i, coords[1]);
-    if (val === false) {
-      console.log('break')
-      break;
+  if (coords[0] + 1 < gameState.size) {
+    //check South square
+    checkCoord(coords[0] + 1, coords[1]);
+
+    //check South corners
+    if (coords[1] - 1 >= 0){
+      checkCoord(coords[0] + 1, coords[1] - 1);
+    }
+    if (coords[1] + 1 < gameState.size){
+      checkCoord(coords[0] + 1, coords[1] + 1);
     }
   }
-  //check E
-  for (let i = coords[1] + 1; i < gameState.size; i++){
-    console.log('e')
-    let val = checkCoord(coords[0], i);
-    if (val === false) {
-      console.log('break')
-      break;
-    }
-  }
-  //check W
-  for (let i = coords[1] - 1; i >= 0; i--){
-    console.log('w')
-    let val = checkCoord(coords[0], i);
-    if (val === false) {
-      console.log('break')
-      break;
-    }
-  }
-  //check corners
-    if (coords[0] - 1 >= 0){
-      if (coords[1] - 1 >= 0){
-        checkCoord(coords[0] - 1, coords[1] - 1);
-      }
-      if (coords[1] + 1 < gameState.size){
-        checkCoord(coords[0] - 1, coords[1] + 1);
-      }
-    }
-    if (coords[0] + 1 < gameState.size) {
-      if (coords[1] - 1 >= 0){
-        checkCoord(coords[0] + 1, coords[1] - 1);
-      }
-      if (coords[1] + 1 < gameState.size){
-        checkCoord(coords[0] + 1, coords[1] + 1);
-      }
-    }
 }
 
-let count = 0;
 //check/change single coordinate
 const checkCoord = (coord0, coord1) => {
   let square = gameState.board[coord0][coord1];
-  console.log('checkcoord', square);
-  count++;
-  console.log(count);
-
+  //if square has already been visited
   if (square.state === 'clicked' || square.state === 'val') {
-    return false;
+    return;
   }
-  //if square is not near a bomb
+  //if square has been flagged
   if (square.state === 'flagged') {
-    return true;
-  }
-  if (square.value === 0) {
+    //skip current square and keep going
+    filterGame([coord0, coord1]);
+  //if square is blank (not near a bomb)
+  } else if (square.value === 0) {
+      //set square to clicked state
       square.state = 'clicked';
       $(`#${coord0}-${coord1}`).removeClass('unclicked').addClass('clicked');
+      //call filter game with current square to check adjacents
       filterGame([coord0, coord1]);
-      return true;
-  //if square is near a bomb
+  //if square is unclicked and near a bomb
   } else if (square.value > 0) {
+    //set square to display its value
     square.state = 'val';
     $(`#${coord0}-${coord1}`).removeClass('unclicked').addClass('val').addClass('c' + square.value);
     $(`#${coord0}-${coord1}`).text(square.value.toString());
-    return false;
+    //do not call filter game again
   }
 }

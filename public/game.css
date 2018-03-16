@@ -1,15 +1,15 @@
 #board {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid gray;
 }
 
 .difficulty {
   cursor: pointer;
-  border: 1px solid gray;
+  border: 3px outset gray;
   padding: 15px;
   margin: 15px;
-  border-radius: 10px;
+  border-radius: 15px;
   font-family: Helvetica, monospace;
   background-color: #e8e8e8;
   text-align: center;
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  }
+}
 
 .board-wrapper {
   display: flex;
@@ -34,7 +34,7 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  border: 1px solid gray;
+  border: 4px double gray;
   flex: 1;
 }
 
@@ -65,23 +65,22 @@
 }
 
 .cell {
-  border: 1px solid black;
-  border-top: 1px solid white;
-  border-right: 1px solid white;
+  border: 2px outset #a3a3c3;
   height: 25px;
   width: 25px;
   user-select: none;
 }
 
-.val, .clicked, .flagged {
+.val, .clicked{
   text-align: center;
   background-color: #e8e8e8;
   font-family: "Lucida Sans", monospace;
   font-weight: bold;
+  border: 2px inset #e8e8e8;
 }
 
 .unclicked, .flagged, .bomb {
-  background-color: #b5d8d5;
+  background-color: #a3a3c3;
 }
 
 .unclicked, .flagged {
@@ -95,6 +94,9 @@
 }
 
 .flagged {
+  text-align: center;
+  font-family: "Lucida Sans", monospace;
+  font-size: 20;
   background-image: url('./flag.png');
   background-size: 25px 25px;
   background-repeat: no-repeat;
