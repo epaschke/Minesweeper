@@ -1,3 +1,3 @@
 # Minesweeper Challenge
 
-Simple Minesweeper using jQuery. Open [index.html](/public/index.html) to play.
+Simple Minesweeper using jQuery. Play working game at https://simple-minesweeper.herokuapp.com/. Open [game.js](/public/game.js) for game logic.
