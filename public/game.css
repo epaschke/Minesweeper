@@ -4,14 +4,19 @@
   border: 1px solid gray;
 }
 
+h1 {
+  font-family: Helvetica;
+  text-align: center;
+}
+
 .difficulty {
   cursor: pointer;
-  border: 3px outset gray;
+  border: 2px solid gray;
   padding: 15px;
   margin: 15px;
-  border-radius: 15px;
-  font-family: Helvetica, monospace;
-  background-color: #e8e8e8;
+  font-family: Helvetica;
+  font-size: 15px;
+  background-color: #a3a3c3;
   text-align: center;
 }
 
@@ -34,24 +39,28 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  border: 4px double gray;
+  border: 4px double #a3a3c3;
   flex: 1;
 }
 
 #game {
-  border: 1px solid gray;
+  border: 1px solid #a3a3c3;
   justify-content: center;
   padding: 30px;
   min-height: 475px;
 }
 
 .number {
-  height: 40px;
+  height: 45px;
   width: 75px;
-  border: 1px solid gray;
+  border: 2px solid #a3a3c3;
+  color: black;
   margin: 20px;
-  font-family: monospace;
+  font-family: "Monaco";
   font-size: 35px;
+  text-align: right;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #playAgain {
@@ -65,7 +74,7 @@
 }
 
 .cell {
-  border: 2px outset #a3a3c3;
+  border: 1px solid gray;
   height: 25px;
   width: 25px;
   user-select: none;
@@ -76,7 +85,7 @@
   background-color: #e8e8e8;
   font-family: "Lucida Sans", monospace;
   font-weight: bold;
-  border: 2px inset #e8e8e8;
+  border: 1px solid gray;
 }
 
 .unclicked, .flagged, .bomb {
