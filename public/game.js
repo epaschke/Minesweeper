@@ -45,25 +45,28 @@ $( document ).ready(() => {
       switch(e.which){
         //left click
         case 1:
-          //square is near a bomb
-          if (square.value > 0){
-            $(`#${e.target.id}`).removeClass('unclicked').addClass('val');
-            $(`#${e.target.id}`).text(square.value.toString()).addClass('c' + square.value);
-            square.state = 'val';
-          }
-          //square is not near a bomb
-          else if (square.value === 0){
-            square.state = 'clicked';
-            $(`#${e.target.id}`).removeClass('unclicked').addClass('clicked');
-            //filter nearby squares
-            filterGame(coords);
-          }
-          //square is a bomb
-          else if (square.bomb) {
-            gameState.gameOver = true;
-            //end game
-            checkEnd();
-            $(`#${e.target.id}`).removeClass('unclicked').addClass('bomb').css('background-color', "red");
+          //if square has not already been clicked or flagged
+          if ($(`#${e.target.id}`).hasClass('unclicked')){
+            //square is near a bomb
+            if (square.value > 0){
+              $(`#${e.target.id}`).removeClass('unclicked').addClass('val');
+              $(`#${e.target.id}`).text(square.value.toString()).addClass('c' + square.value);
+              square.state = 'val';
+            }
+            //square is not near a bomb
+            else if (square.value === 0){
+              square.state = 'clicked';
+              $(`#${e.target.id}`).removeClass('unclicked').addClass('clicked');
+              //filter nearby squares
+              filterGame(coords);
+            }
+            //square is a bomb
+            else if (square.bomb) {
+              gameState.gameOver = true;
+              //end game
+              checkEnd();
+              $(`#${e.target.id}`).removeClass('unclicked').addClass('bomb').css('background-color', "red");
+            }
           }
           break;
         //right click
