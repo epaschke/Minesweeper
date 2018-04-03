@@ -243,14 +243,14 @@ const checkEnd = () => {
   //if user made move
   else {
     //count number of squares left that are not bombs, reduce to a boolean
-    let a = gameState.board.map(e => {
+    let gameIsOver = gameState.board.map(e => {
         return e.filter(c => {
           return (c.state === 'unclicked' && !c.bomb) || (c.state === 'flagged' && !c.bomb);
         }).length;
-    }).reduce((a, v) => { return a + parseInt(v); }, 0) === 0;
+    }).reduce((acc, val) => { return acc + parseInt(val); }, 0) === 0;
 
     //if there are no unclicked squares left, player wins!
-    if (a) {
+    if (gameIsOver) {
       //clear interval and game state
       clearInterval(gameState.timer);
       gameState.bombs = 0;
@@ -265,7 +265,7 @@ const checkEnd = () => {
         })
       });
     }
-    gameState.gameOver = a;
+    gameState.gameOver = gameIsOver;
   }
 }
 
