@@ -55,9 +55,9 @@ h1 {
 
 .number {
   height: 45px;
-  width: 75px;
+  width: 100px;
   border: 2px solid #49495f;
-  color: #bb5c5c;
+  color: #49495f;
   margin: 20px;
   font-family: "Monaco";
   font-size: 35px;
