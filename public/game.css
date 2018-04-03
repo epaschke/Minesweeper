@@ -49,27 +49,22 @@ h1 {
 
 #game {
   justify-content: center;
-  padding: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   min-height: 475px;
 }
 
 .number {
   height: 45px;
-  width: 75px;
+  width: 100px;
   border: 2px solid #49495f;
-  color: #bb5c5c;
+  color: #49495f;
   margin: 20px;
   font-family: "Monaco";
   font-size: 35px;
   text-align: right;
   padding-left: 5px;
   padding-right: 5px;
-}
-
-#playAgain {
-  height: 40px;
-  width: 70px;
-  margin: 20px;
 }
 
 .row {
