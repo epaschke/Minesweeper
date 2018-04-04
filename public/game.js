@@ -254,7 +254,7 @@ gameFunctions.checkEnd = () => {
     if (gameIsOver) {
       //clear interval and game state
       clearInterval(gameState.timer);
-      gameState.bombs = 0;
+      $('#bombs').text(gameState.bombs = 0);
       //update messsage
       $("#message").text("Game over. You won!");
       //map over game board and put flags on unflagged bombs

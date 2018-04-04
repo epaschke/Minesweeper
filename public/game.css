@@ -1,25 +1,45 @@
-#board {
-  display: flex;
-  flex-direction: column;
+:root {
+  --light-gray: #dedede;
+  --dark-purple: #49495f;
+  --main-purple: #6c6c8e;
 }
 
-h1 {
-  font-family: Helvetica;
+#game {
+  justify-content: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-height: 475px;
+  font-family: "Lucida Sans";
   text-align: center;
-  color: #49495f;
+  color: var(--dark-purple);
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border: 4px double var(--dark-purple);
+  flex: 1;
+  margin-bottom: 15px;
+}
+
+.number {
+  height: 40px;
+  width: 100px;
+  border: 2px solid var(--dark-purple);
+  margin: 20px;
+  font-size: 2em;
+  text-align: right;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .difficulty {
   cursor: pointer;
-  background-color: #dedede;
-  /* border: 2px solid #8080a9; */
+  background-color: var(--light-gray);
   border-radius: 15px;
-  color: #49495f;
   padding: 15px;
   margin: 15px;
-  font-family: Helvetica;
-  font-size: 15px;
-  text-align: center;
   font-size: 1em;
 }
 
@@ -32,39 +52,11 @@ h1 {
 .board-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-grow: 2;
   padding: 10px;
-  align-self: center;
 }
 
-#header {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  border: 4px double #49495f;
-  flex: 1;
-  margin-bottom: 15px;
-}
-
-#game {
-  justify-content: center;
-  padding-left: 30px;
-  padding-right: 30px;
-  min-height: 475px;
-}
-
-.number {
-  height: 45px;
-  width: 100px;
-  border: 2px solid #49495f;
-  color: #49495f;
-  margin: 20px;
-  font-family: "Monaco";
-  font-size: 35px;
-  text-align: right;
-  padding-left: 5px;
-  padding-right: 5px;
+#board {
+  flex-direction: column;
 }
 
 .row {
@@ -72,31 +64,26 @@ h1 {
 }
 
 .cell {
-  border: 1px solid white;
+  margin: 1px;
   height: 26px;
   width: 26px;
   user-select: none;
-  text-align: center;
-  font-family: "Lucida Sans", monospace;
   font-size: 1.25em;
   font-weight: bold;
+  background-size: 26px 26px;
+  background-repeat: no-repeat;
 }
 
 .val, .clicked{
-  background-color: #dedede;
+  background-color: var(--light-gray);
 }
 
 .unclicked, .flagged, .bomb {
-  background-color: #8080a9;
+  background-color: var(--main-purple);
 }
 
 .unclicked, .flagged {
   cursor: pointer;
-}
-
-.bomb, .flagged {
-  background-size: 26px 26px;
-  background-repeat: no-repeat;
 }
 
 .bomb {
@@ -105,6 +92,7 @@ h1 {
 
 .flagged {
   background-image: url('./flag.png');
+  color: white;
 }
 
 .c1 {
