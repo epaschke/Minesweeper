@@ -5,6 +5,7 @@ Simple implementation of the game Minesweeper. Working game was deployed to Hero
 
 ## Stack/Architecture
 Frontend: Plain JS/HTML/CSS with jQuery.
+
 Backend: No backend.
 
 ## Project Layout
