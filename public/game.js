@@ -108,7 +108,7 @@ $( document ).ready(() => {
         size = [16, 40];
         break;
       case 'advanced':
-        size = [20, 100];
+        size = [20, 80];
         break;
       default: //default is beginner
         size = [9, 10];
