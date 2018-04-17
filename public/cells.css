@@ -1,0 +1,55 @@
+.cell {
+  border: 1px solid white;
+  height: 26px;
+  width: 26px;
+  user-select: none;
+  font-size: 1.25em;
+  font-weight: bold;
+  background-size: 26px 26px;
+  background-repeat: no-repeat;
+}
+
+.val, .clicked{
+  background-color: var(--light-gray);
+}
+
+.unclicked, .flagged, .bomb {
+  background-color: var(--main-purple);
+}
+
+.unclicked, .flagged {
+  cursor: pointer;
+}
+
+.bomb {
+  background-image: url('./mine.png');
+}
+
+.flagged {
+  background-image: url('./flag.png');
+  color: white;
+}
+
+.c1 {
+  color: darkblue;
+}
+
+.c2 {
+  color: darkgreen;
+}
+
+.c3 {
+  color: darkred;
+}
+
+.c4 {
+  color: purple;
+}
+
+.c5 {
+  color: orange;
+}
+
+.c6 {
+  color: indigo;
+}
