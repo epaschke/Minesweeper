@@ -64,7 +64,7 @@
 }
 
 .cell {
-  margin: 1px;
+  border: 1px solid white;
   height: 26px;
   width: 26px;
   user-select: none;
