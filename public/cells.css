@@ -9,6 +9,10 @@
   background-repeat: no-repeat;
 }
 
+.cell.unclicked:hover, .cell.flagged:hover {
+  background-color: var(--dark-purple);
+}
+
 .val, .clicked{
   background-color: var(--light-gray);
 }
