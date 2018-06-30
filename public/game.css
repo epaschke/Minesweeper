@@ -1,5 +1,6 @@
 :root {
   --light-gray: #dedede;
+  --med-gray: #b9b9b9;
   --dark-purple: #49495f;
   --main-purple: #6c6c8e;
 }
@@ -41,6 +42,11 @@
   padding: 15px;
   margin: 15px;
   font-size: 1em;
+}
+
+.difficulty:hover {
+  background-color: var(--med-gray);
+
 }
 
 #buttons-difficulty {
