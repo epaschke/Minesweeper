@@ -24,13 +24,18 @@
   margin-bottom: 15px;
 }
 
+.header-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .number {
   height: 40px;
   width: 100px;
   border: 2px solid var(--dark-purple);
-  margin: 20px;
+  margin: 5px 20px 5px 20px;
   font-size: 2em;
-  text-align: right;
   padding-left: 5px;
   padding-right: 5px;
 }
